@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// App.jsx: 実際のアプリケーションの内容（UIやロジック）を定義するコンポーネント
 
-function App() {
-  const [count, setCount] = useState(0)
+import React, { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import ProductList from './ProductList';
+import AddProduct from './Addproduct';
+import UpdateProduct from './UpdateProduct';
+import DeleteProduct from './DeleteProduct';
+import './App.css';
+
+
+const App = () => {
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [name, setName] = useState('');
+  // selectProductId →今選択している商品のIDをuseStateで状態を保存している
+  // 初期値はnull
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app-container">
+      <h1 className='app-title'>🗂️ツール管理アプリ</h1>
+
+      {/* 商品追加フォーム */}
+      <AddProduct />
+
+      {/* 商品一覧 */}
+      <ProductList setSelectedProductId={setSelectedProductId} />
+      {/* ProductListコンポーネントにsetSelectProductIdを渡して、商品を選んだ時に商品IDをAppに渡す */}
+      {/* <子コンポーネントの呼び出し 渡したい値 />
+          <Title title="〇○○" /> 親コンポーネントApp.js
+          <Text{this.props.title}</Text>子コンポーネントTitle.js
+          親コンポーネントから渡された値がpropsに入る*/}
+
+      {/* 商品更新フォーム */}
+      {selectedProductId && <UpdateProduct productId={selectedProductId} setName={setName} /> }
+      {/* $$→両方true
+          selectedProductIdがnull(初期値)ならfalseになる 
+          →nullの場合は<UpdateProduct />は表示されない*/}
+
+      {/* 商品削除ボタン */}
+      {selectedProductId && name && <DeleteProduct productId={selectedProductId} />}
+      {/* $$→両方true
+          selectedProductIdがnull(初期値)ならfalseになる 
+          →nullの場合は<DeletedateProduct />は表示されない*/}
+    </div>
+  );
+};
 
 export default App
