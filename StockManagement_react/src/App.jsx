@@ -8,6 +8,7 @@ import AddProduct from './Addproduct';
 import UpdateProduct from './UpdateProduct';
 import DeleteProduct from './DeleteProduct';
 import './App.css';
+import NearExpiryList from './NearExpiryList';
 
 
 const App = () => {
@@ -21,7 +22,10 @@ const App = () => {
       <h1 className='app-title'>🗂️ツール管理アプリ</h1>
 
       {/* 商品追加フォーム */}
-      <AddProduct />
+      <AddProduct /><br /><br />
+
+       {/* 消費期限が近い商品を表示 */}
+       <NearExpiryList />
 
       {/* 商品一覧 */}
       <ProductList setSelectedProductId={setSelectedProductId} />
@@ -30,6 +34,8 @@ const App = () => {
           <Title title="〇○○" /> 親コンポーネントApp.js
           <Text{this.props.title}</Text>子コンポーネントTitle.js
           親コンポーネントから渡された値がpropsに入る*/}
+
+          <br />
 
       {/* 商品更新フォーム */}
       {selectedProductId && <UpdateProduct productId={selectedProductId} setName={setName} /> }
