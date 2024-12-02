@@ -63,7 +63,7 @@ const NearExpiryList = () => {
                 <tbody>
                     {expiredProducts.length > 0 ? ( // もしexpiredProducts配列(消費期限が過ぎた商品)が1件以上あれば、map()を使って各商品をテーブルの行(<tr>)として表示
                         expiredProducts.map((product) => (
-                            <tr key={product.id}>
+                            <tr key={product.id}> 
                                 <td>{product.name}</td>
                                 <td>{new Date(product.expiration_date).toLocaleDateString()}</td>
                             </tr>
@@ -81,6 +81,10 @@ const NearExpiryList = () => {
                 **map()**はその配列を1つずつ取り出して処理を行うためのメソッド
                 map()は、配列の各要素を新しい配列に変換することができる
                 productは、expiredProducts配列の中の1つの商品を指します。つまり、map()が繰り返し処理を行い、productには1つずつ商品のデータが格納される */}
+            {/* key属性はUIには表示されない */}
+            {/* new Date(product.expiration_date): product.expiration_dateは商品ごとの消費期限を表す文字列（例: "2024-12-31"）
+                これをnew Date()でDateオブジェクトに変換。Dateオブジェクトに変換することで、JavaScriptの標準日付操作ができるようになる
+                .toLocaleDateString(): Dateオブジェクトをローカルの日付形式に変換します。例えば、"2024-12-31"が日本の日付形式（"2024年12月31日"）に変換されます。 */}
 
 
             <h2>🔔消費期限が近い商品（30日以内）</h2>

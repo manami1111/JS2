@@ -20,6 +20,9 @@
   padding: 40px 20px;
   text-align: center;
   color: #333333; /* ダークグレー */
+  background-image: url(./haikei.png);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 }
 
 .app-title {
