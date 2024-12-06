@@ -9,6 +9,7 @@ import UpdateProduct from './UpdateProduct';
 import DeleteProduct from './DeleteProduct';
 import './App.css';
 import NearExpiryList from './NearExpiryList';
+import ExportButtons from './ExportButtons';
 
 
 const App = () => {
@@ -24,8 +25,8 @@ const App = () => {
       {/* 商品追加フォーム */}
       <AddProduct /><br /><br />
 
-       {/* 消費期限が近い商品を表示 */}
-       <NearExpiryList />
+      {/* 消費期限が近い商品を表示 */}
+      <NearExpiryList />
 
       {/* 商品一覧 */}
       <ProductList setSelectedProductId={setSelectedProductId} />
@@ -35,10 +36,10 @@ const App = () => {
           <Text{this.props.title}</Text>子コンポーネントTitle.js
           親コンポーネントから渡された値がpropsに入る*/}
 
-          <br />
+      <br />
 
       {/* 商品更新フォーム */}
-      {selectedProductId && <UpdateProduct productId={selectedProductId} setName={setName} /> }
+      {selectedProductId && <UpdateProduct productId={selectedProductId} setName={setName} />}
       {/* $$→両方true
           selectedProductIdがnull(初期値)ならfalseになる 
           →nullの場合は<UpdateProduct />は表示されない*/}
@@ -48,6 +49,9 @@ const App = () => {
       {/* $$→両方true
           selectedProductIdがnull(初期値)ならfalseになる 
           →nullの場合は<DeletedateProduct />は表示されない*/}
+
+      {/* エクスポートボタンを表示 */}
+      <ExportButtons />
     </div>
   );
 };
