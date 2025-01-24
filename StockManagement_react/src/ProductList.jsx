@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ProductList.css';
 import DeleteProduct from './DeleteProduct';
+import { useNavigate } from 'react-router-dom';
 
 const ProductList = ({ setSelectedProductId }) => {
     const [products, setProducts] = useState([]);  // 商品の状態を保持
+    const navigate = useNavigate();
     // const [num, setNum] = useState();
     // 初期値に空の配列[]
     // numは状態を持った変数、setNumはそれを更新する関数
@@ -43,12 +45,14 @@ const ProductList = ({ setSelectedProductId }) => {
     };
 
     const handleUpdateClick = (productId) => {
-        if (setSelectedProductId) {
-            setSelectedProductId(productId); // 選択された商品IDを設定
-            console.log(`Selected Product ID: ${productId}`); // 確認のためにログ出力
-        } else {
-            console.error('setSelectedProductId is not defined');
-        }
+        console.log(`Selected Product ID: ${productId}`); 
+        navigate(`/update/${productId}`);
+        // if (setSelectedProductId) {
+        //     setSelectedProductId(productId); // 選択された商品IDを設定
+        //     console.log(`Selected Product ID: ${productId}`); // 確認のためにログ出力
+        // } else {
+        //     console.error('setSelectedProductId is not defined');
+        // }
     };
 
 
@@ -64,7 +68,7 @@ const ProductList = ({ setSelectedProductId }) => {
                             <p className="product-price">¥{product.price}</p>
                             <p className="product-quantity">在庫: {product.quantity}</p>
                             <p className="product-expiry-date">消費期限: {formatDate(product.expiration_date)}</p>
-                            <button className='update-button' onClick={() => setSelectedProductId(product.id)}>更新</button>
+                            <button className='update-button' onClick={() => handleUpdateClick(product.id)}>更新</button>
                                 <DeleteProduct productId={product.id} />
                         </li>
                     );

@@ -1,8 +1,10 @@
+
 import React from 'react';
 import axios from 'axios';
 import './DeleteProduct.css';
 
 const DeleteProduct = ({ productId }) => {
+
 
   const handleDelete = () => {
     // 確認ダイアログの表示

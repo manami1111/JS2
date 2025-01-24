@@ -140,10 +140,10 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // 追加
+import { useParams } from 'react-router-dom'; 
 import './UpdateProduct.css';
 
-const UpdateProduct = ({ setName }) => {
+const UpdateProduct = () => {
   const { id: productId } = useParams(); // URLパラメータから productId を取得
 
   const [name, setNameLocal] = useState('');
@@ -152,9 +152,15 @@ const UpdateProduct = ({ setName }) => {
   const [expirationDate, setExpirationDate] = useState('');
 
   useEffect(() => {
+    // // CSRFトークンを取得してaxiosのデフォルトヘッダーに設定
+    // const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+    // axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
+    console.log('Fetching product data for ID:', productId); // デバッグ用ログ
     axios.get(`http://localhost:8000/api/products/${productId}`)
       .then(response => {
         const product = response.data;
+        console.log('Product data fetched:', product); // デバッグ用ログ
         setNameLocal(product.name);
         setPrice(product.price);
         setQuantity(product.quantity);
@@ -166,7 +172,10 @@ const UpdateProduct = ({ setName }) => {
   }, [productId]);
 
   const handleUpdate = (e) => {
+    console.log('handleUpdate が呼ばれました'); // デバッグログ
+
     e.preventDefault();
+    console.log('Update button clicked'); // デバッグ用ログ
 
     const updatedProduct = {
       name,
@@ -175,10 +184,12 @@ const UpdateProduct = ({ setName }) => {
       expiration_date: expirationDate,
     };
 
+    console.log('Sending update request:', updatedProduct); // デバッグ用ログ
+
+
     axios.put(`http://localhost:8000/api/products/${productId}`, updatedProduct)
       .then(response => {
         alert('商品が更新されました！');
-        if (setName) setName(name); // 必要であれば親コンポーネントに反映
       })
       .catch(error => {
         console.error('商品更新に失敗しました:', error);
@@ -188,7 +199,10 @@ const UpdateProduct = ({ setName }) => {
   return (
     <div className='update-product-form'>
       <h2>🛍️商品情報を更新</h2>
-      <form onSubmit={handleUpdate}>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        handleUpdate(e);
+      }}>
         <div>
           <label>商品名:</label>
           <input
