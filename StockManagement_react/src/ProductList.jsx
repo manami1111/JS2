@@ -42,6 +42,15 @@ const ProductList = ({ setSelectedProductId }) => {
         return new Date(date).toLocaleDateString('ja-JP', options);
     };
 
+    const handleUpdateClick = (productId) => {
+        if (setSelectedProductId) {
+            setSelectedProductId(productId); // 選択された商品IDを設定
+            console.log(`Selected Product ID: ${productId}`); // 確認のためにログ出力
+        } else {
+            console.error('setSelectedProductId is not defined');
+        }
+    };
+
 
     return (
         <div className="product-list">

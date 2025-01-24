@@ -103,8 +103,9 @@ function ExportButtons() { //Reactのコンポーネント。この中でボタ�
 
   return (
     <div>
-      <button onClick={handleExportExcel}>Excelエクスポート</button>
+      <button onClick={handleExportExcel}>Excelエクスポート</button> 
       <button onClick={handleExportCsv}>CSVエクスポート</button>
+      {/* クリックするとhandleExceportExcel handleExportCsvが実行されるボタン */}
     </div>
   );
 };
